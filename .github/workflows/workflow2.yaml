@@ -27,11 +27,10 @@ jobs:
         aws-region: us-east-1
         role-session-name: GithubActions
 
-    - name: change dir
-      run: cd learn-terraform-aws-conor
-
     - name: Terraform Init
+      working-directory: learn-terraform-aws-conor
       run: terraform init
 
     - name: Terraform Apply
-      run: terraform apply
+      working-directory: learn-terraform-aws-conor
+      run: terraform apply 
