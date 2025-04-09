@@ -16,7 +16,6 @@ terraform {
 
 provider "aws" {
   region  = "us-west-2"
-  profile = "pythons-conor"
 }
 
 resource "aws_instance" "app_server" {
