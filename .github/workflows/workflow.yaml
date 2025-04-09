@@ -1,0 +1,39 @@
+name: 'Terraform Test'
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+        aws-region: us-west-2
+        role-session-name: GithubActions
+    
+    - name: change dir
+      run: cd learn-terraform-aws-conor
+
+    - name: Terraform Format
+      run: terraform fmt
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Validate
+      run: terraform validate
+
+    - name: Terraform Plan
+      run: terraform plan

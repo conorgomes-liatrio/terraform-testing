@@ -1,10 +1,9 @@
 terraform {
-  backend "remote"{
-    organization = "native-pythons"
-    workspaces {
-        name = "conor-workspace"
-    }
-}
+  backend "s3" {
+    bucket  = "conor-terraform-buck"
+    key     = "states"
+    region  = "us-east-1"
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -16,7 +15,8 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region  = "us-west-2"
+  profile = "pythons-conor"
 }
 
 resource "aws_instance" "app_server" {
